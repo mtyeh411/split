@@ -13,12 +13,10 @@ module Split
       user
     end
 
-    private
-
     def cleanup_old_experiments
       user.keys.each do |key|
         experiment = ExperimentCatalog.find key_without_version(key)
-        if experiment.nil? || experiment.has_winner?
+        if experiment.nil? || experiment.has_winner? || experiment.start_time.nil?
           user.delete key
         end
       end
