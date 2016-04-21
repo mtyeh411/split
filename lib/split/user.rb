@@ -18,7 +18,7 @@ module Split
     def cleanup_old_experiments
       user.keys.each do |key|
         experiment = ExperimentCatalog.find key_without_version(key)
-        if experiment.blank? || experiment.has_winner?
+        if experiment.nil? || experiment.has_winner?
           user.delete key
         end
       end
