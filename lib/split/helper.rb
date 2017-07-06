@@ -125,7 +125,12 @@ module Split
     end
 
     def is_robot?
-      defined?(request) && request.user_agent =~ Split.configuration.robot_regex
+      return unless defined?(request)
+      if defined?(VoightKampff)
+        VoightKampff.bot? request.user_agent
+      else
+        request.user_agent =~ Split.configuration.robot_regex
+      end
     end
 
     def is_ignored_ip_address?
